@@ -1,4 +1,5 @@
 #include "constants.hpp"
+#include "shader.hpp"
 
 int main() {
     if (!glfwInit()) {
@@ -18,45 +19,8 @@ int main() {
         return -1;
     }
 
-    // Setting up Shader
-    uint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-    glCompileShader(vertexShader);
-
-    int success;
-    char infoLog[512];
-    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-    if (!success)
-    {
-        glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
-    }
-
-    uint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-    glCompileShader(fragmentShader);
-
-    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
-    if (!success)
-    {
-        glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
-    }
-
-    uint shaderProgram = glCreateProgram();
-    glAttachShader(shaderProgram, vertexShader);
-    glAttachShader(shaderProgram, fragmentShader);
-    glLinkProgram(shaderProgram);
-
-    glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
-    if (!success) {
-        glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
-    }
-
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
-
+    Shader shader = Shader(vertexShaderPath, fragmentShaderPath);
+    
     // Setting up Triangle Vertex Object
     float vertices[] = {
     -0.5f, -0.5f, 0.0f,
@@ -90,7 +54,7 @@ int main() {
         glClear(GL_COLOR_BUFFER_BIT); 
 
         // Render
-        glUseProgram(shaderProgram);
+        shader.enable();
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 3);
         
@@ -100,7 +64,8 @@ int main() {
         glfwPollEvents();
     }
 
-    glDeleteProgram(shaderProgram);
+
+    shader.free();
     glfwDestroyWindow(window);
     glfwTerminate();
 
