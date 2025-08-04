@@ -35,7 +35,7 @@ else
     # Linux settings
     # Assumes libraries are installed system-wide (e.g., via apt)
     # These are common include and library paths for a Linux system
-    INCLUDES = -I/usr/include/GLFW -I/usr/include/GL -I/usr/include/glm
+    INCLUDES = -I/usr/include/GLFW -I/usr/include/GL -I/usr/include/glm -Iinclude/
     
     # These are the standard linker flags for GLFW and GLEW on Linux
     LIBS = -lglfw -lGLEW -lGL -lX11 -lXi -lXrandr -lXxf86vm -lXcursor -lpthread -ldl -lm
