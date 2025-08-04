@@ -36,6 +36,7 @@
 *.exe
 *.out
 *.app
+MinecraftClone
 
 # debug information files
 *.dwo
