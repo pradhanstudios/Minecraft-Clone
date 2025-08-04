@@ -3,7 +3,7 @@ WARNING_OPTIONS = -Wextra -Wall -Werror
 SOURCE = src/*.cpp
 INCLUDE = -Iinclude/ -I/usr/include/glm
 LIBS_PATHS = -L/usr/lib/x86_64-linux-gnu
-LIBS = -lGLEW -lglfw -lGL -lm -lfreetype
+LIBS = -lGLEW -lglfw -lGL -lm
 TARGET = MinecraftClone
 MAIN_CMD = -o $(TARGET) $(SOURCE) $(INCLUDE) $(LIBS_PATHS) $(LIBS)
 
