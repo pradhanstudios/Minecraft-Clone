@@ -40,3 +40,9 @@ MinecraftClone
 
 # debug information files
 *.dwo
+
+# User-defined
+include/glew/
+include/glfw/
+include/glm/
+.vs
