@@ -1,13 +1,10 @@
-#include <iostream>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+#include "constants.hpp"
 
 int main() {
     if (!glfwInit()) {
         return -1;
     }
 
-    glfwWindowHint(GLFW_STENCIL_BITS, 8);
     glfwWindowHint(GLFW_DEPTH_BITS, 24);
     GLFWwindow* window = glfwCreateWindow(1280, 720, "Minecraft Clone", NULL, NULL);
     if (!window) {
@@ -22,17 +19,19 @@ int main() {
     }
 
     while (!glfwWindowShouldClose(window)) {
+
+        // Input
+        
+        if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+            glfwSetWindowShouldClose(window, true);
+
+        //
+
         glClear(GL_COLOR_BUFFER_BIT); 
 
         // Render
 
-
-
-
-
-
-
-
+        
         // 
 
         glfwSwapBuffers(window);
