@@ -1,7 +1,7 @@
 COMPILER = g++
 WARNING_OPTIONS = -Wextra -Wall -Werror
 SOURCE = src/*.cpp
-INCLUDE = -I/usr/include/glm
+INCLUDE = -Iinclude/ -I/usr/include/glm
 LIBS_PATHS = -L/usr/lib/x86_64-linux-gnu
 LIBS = -lGLEW -lglfw -lGL -lm -lfreetype
 TARGET = MinecraftClone
