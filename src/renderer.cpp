@@ -17,8 +17,10 @@ void Renderer::clear() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void Renderer::draw(const Mesh& mesh, const Shader& shader) {
+void Renderer::draw(const Mesh& mesh, Shader& shader, const Camera& camera) {
 	shader.enable();
+    shader.setm4("projection", glm::value_ptr(camera.getProjection()));
+    shader.setm4("view", glm::value_ptr(camera.getView()));
 	mesh.bind();
 	glDrawArrays(GL_TRIANGLES, 0, mesh.getVertexCount());
 	mesh.unbind();
