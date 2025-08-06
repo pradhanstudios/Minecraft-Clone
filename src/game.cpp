@@ -49,6 +49,7 @@ void Game::init() {
 		 0.5f, -0.5f, 0.0f,
 		 0.0f,  0.5f, 0.0f
 	};
+
 	m_triangleMesh = new Mesh(vertices, sizeof(vertices) / sizeof(float));
 
 	std::cout << "Game initialization complete." << std::endl;
@@ -72,7 +73,22 @@ void Game::processInput() {
 	if (m_window->isKeyPressed(GLFW_KEY_ESCAPE)) {
 		glfwSetWindowShouldClose(m_window->getGLFWwindow(), true);
 	}
-	// Input handling
+	if (m_window->isKeyPressed(GLFW_KEY_W)) {
+	    m_camera->setPosition(m_camera->getPosition() + glm::vec3(0.f, 0.f, -1.f));	
+        m_camera->updateView();
+	}
+	if (m_window->isKeyPressed(GLFW_KEY_S)) {
+	    m_camera->setPosition(m_camera->getPosition() + glm::vec3(0.f, 0.f, 1.f));	
+        m_camera->updateView();
+	}
+    if (m_window->isKeyPressed(GLFW_KEY_A)) {
+	    m_camera->setPosition(m_camera->getPosition() + glm::vec3(-1.f, 0.f, 0.f));	
+        m_camera->updateView();
+	}
+    if (m_window->isKeyPressed(GLFW_KEY_D)) {
+	    m_camera->setPosition(m_camera->getPosition() + glm::vec3(1.f, 0.f, 0.f));	
+        m_camera->updateView();
+	}
 }
 
 void Game::update() {

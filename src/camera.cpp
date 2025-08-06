@@ -2,6 +2,7 @@
 
 Camera::Camera(glm::vec3 position) {
     this->position = position;
+    direction = glm::vec3(0.f, 0.f, 0.f);
     projection = glm::perspective(glm::radians(45.f), float(defaultWidth) / float(defaultHeight), 0.1f, 100.f);
     updateView();
 }
@@ -21,5 +22,5 @@ Camera::Camera(glm::vec3 position) {
 //
 
 void Camera::updateView() {
-    view = glm::lookAt(position, glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.f, 1.f, 0.f));
+    view = glm::lookAt(position, position + direction + glm::vec3(0.f, 0.f, -1.f), glm::vec3(0.f, 1.f, 0.f));
 }

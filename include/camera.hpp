@@ -5,6 +5,7 @@ class Camera {
     glm::mat4 view;
     glm::mat4 projection;
     glm::vec3 position;
+    glm::vec3 direction;
 public:
     Camera(glm::vec3 position);
     void updateView();
@@ -22,5 +23,9 @@ public:
 
     inline void setPosition(glm::vec3 nPos) {
         position = nPos;
+    }
+
+    inline glm::vec3 getPosition() {
+        return position;
     }
 };
