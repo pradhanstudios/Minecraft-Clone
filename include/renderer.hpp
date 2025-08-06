@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Mesh.hpp"
+#include "mesh.hpp"
 #include "shader.hpp"
 #include <GL/glew.h>
 
