@@ -1,5 +1,6 @@
 #include "constants.hpp"
 #include "shader.hpp"
+#include "camera.hpp"
 
 int main() {
     if (!glfwInit()) {
@@ -20,6 +21,7 @@ int main() {
     }
 
     Shader shader = Shader(vertexShaderPath, fragmentShaderPath);
+    Camera camera = Camera(glm::vec3(0.f, 0.f, 3.f));
     
     // Setting up Triangle Vertex Object
     float vertices[] = {
@@ -52,9 +54,12 @@ int main() {
         //
 
         glClear(GL_COLOR_BUFFER_BIT); 
+        camera.updateView();
 
         // Render
         shader.enable();
+        shader.set("projection", camera.getProjection());
+        shader.set("view", camera.getView());
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 3);
         
