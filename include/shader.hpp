@@ -1,47 +1,50 @@
 #pragma once
+
 #include "constants.hpp"
 
 class Shader {
-    uint id;
+	uint m_id;
 public:
-    Shader(const char* vertexShaderPath, const char* fragmentShaderPath);
+	Shader(const char* vertexShaderPath, const char* fragmentShaderPath);
+	~Shader();
 
-    inline void free() {
-        glDeleteProgram(id);
-    }
+	inline GLuint getID() const {
+		return m_id;
+	}
 
-    inline GLuint getID() {
-        return id;
-    }
+	inline void enable() const {
+		glUseProgram(m_id);
+	}
 
-    inline void enable() {
-        glUseProgram(id);
-    }
+	inline void disable() const {
+		glUseProgram(0);
+	}
 
-    inline void disable() {
-        glUseProgram(0);
-    }
+	inline GLint getLocation(const char* parameter) const {
+		return glGetUniformLocation(m_id, parameter);
+	}
 
-    inline int getLocation(const char* parameter) {
-        return glGetUniformLocation(id, parameter);
-    }
+	inline void set(const char* parameter, int v) const {
+		glUniform1i(getLocation(parameter), v);
+	}
 
-    inline void set(const char* parameter, int v) {
-        glUniform1i(getLocation(parameter), v);
-    }
+	inline void set(const char* parameter, float v) const {
+		glUniform1f(getLocation(parameter), v);
+	}
 
-    inline void set(const char* parameter, float v) {
-        glUniform1f(getLocation(parameter), v);
-    }
+	inline void set(const char* parameter, float v1, float v2) const {
+		glUniform2f(getLocation(parameter), v1, v2);
+	}
 
-    inline void set(const char* parameter, float v1, float v2) {
-        glUniform2f(getLocation(parameter), v1, v2);
-    }
+	inline void set(const char* parameter, float v1, float v2, float v3) const {
+		glUniform3f(getLocation(parameter), v1, v2, v3);
+	}
 
-    inline void set(const char* parameter, float v1, float v2, float v3) {
-        glUniform3f(getLocation(parameter), v1, v2, v3);
-    }
+	inline void set(const char* parameter, float v1, float v2, float v3, float v4) const {
+		glUniform4f(getLocation(parameter), v1, v2, v3, v4);
+	}
 
+<<<<<<< HEAD
     inline void set(const char* parameter, float v1, float v2, float v3, float v4) {
         glUniform4f(getLocation(parameter), v1, v2, v3, v4);
     }
@@ -49,4 +52,9 @@ public:
     inline void set(const char* parameter, glm::mat4& matrix, GLsizei count = 1, GLboolean transpose = GL_FALSE) {
         glUniformMatrix4fv(getLocation(parameter), count, transpose, glm::value_ptr(matrix));
     }
+=======
+	inline void setm4(const char* parameter, const float* matrix, GLsizei count = 1, GLboolean transpose = GL_FALSE) const {
+		glUniformMatrix4fv(getLocation(parameter), count, transpose, matrix);
+	}
+>>>>>>> 9e6f2a1704b11bb79ba7dba319bff1912cc8fba5
 };
