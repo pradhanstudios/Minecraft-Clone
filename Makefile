@@ -6,10 +6,10 @@ CXX = g++
 # This is a robust way to get all .cpp files in the src directory
 SRCS = $(wildcard src/*.cpp)
 
-# Define the output executable name
+# Define the output executable name (will be created in the root directory)
 TARGET = MinecraftClone
 
-# Define the build directory
+# Define the build directory for intermediate object files
 BUILD_DIR = build
 
 # --- Platform-specific settings ---
@@ -45,33 +45,36 @@ endif
 
 # --- End of Configuration ---
 
-# The OBJS variable correctly creates a list of object file names
+# The OBJS variable now creates object files within the build directory
 # e.g., src/main.cpp -> build/main.o
 OBJS = $(addprefix $(BUILD_DIR)/, $(notdir $(SRCS:.cpp=.o)))
 
 # The main rule to build everything
-# It depends on the final executable, which in turn depends on everything else
-all: $(BUILD_DIR)/$(TARGET)
+# It now depends directly on the TARGET executable in the root.
+all: $(TARGET)
 
 # Rule to create the build directory if it doesn't exist
+# This is a prerequisite for creating object files in that directory.
 $(BUILD_DIR):
 	@mkdir -p $(BUILD_DIR)
 
-# Rule to link all object files into the final executable
-$(BUILD_DIR)/$(TARGET): $(OBJS)
+# Rule to link all object files into the final executable in the root directory
+$(TARGET): $(OBJS)
 	@echo "Linking executable..."
 	$(CXX) $(OBJS) $(LIBS) -o $@
 
 # Pattern rule to compile each source file into its corresponding object file
-# The '| $(BUILD_DIR)' is a crucial fix that ensures the build directory exists
-# before the compiler tries to write to it.
+# The object files are now created in the $(BUILD_DIR) directory.
+# The '| $(BUILD_DIR)' ensures the build directory exists before compilation.
 $(BUILD_DIR)/%.o: src/%.cpp | $(BUILD_DIR)
 	@echo "Compiling $<..."
 	$(CXX) -c $(CXXFLAGS) $(INCLUDES) $< -o $@
 
 # Clean up build artifacts
+# This rule now removes the executable from the root and the entire build directory.
 clean:
-	@echo "Cleaning build directory..."
-	@rm -rf $(BUILD_DIR)
+	@echo "Cleaning build artifacts..."
+	@rm -f $(TARGET) # Remove the executable from the root
+	@rm -rf $(BUILD_DIR) # Remove the entire build directory (containing .o files)
 
 .PHONY: all clean
