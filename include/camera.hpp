@@ -9,12 +9,14 @@ public:
     Camera(glm::vec3 position);
     void updateView();
     
-
-    inline glm::mat4& getView() {
+    ~Camera() {
+        std::cout << "Camera has been destroyed." << std::endl;
+    }
+    inline glm::mat4 getView() const {
         return view;
     }
 
-    inline glm::mat4& getProjection() {
+    inline glm::mat4 getProjection() const {
         return projection;
     }
 
