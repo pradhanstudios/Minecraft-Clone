@@ -4,7 +4,6 @@
 #include <iostream>
 #include <string>
 
-
 char* readFile(const char* filename) {
 	FILE* file = fopen(filename, "rb");
 	if (!file) {
