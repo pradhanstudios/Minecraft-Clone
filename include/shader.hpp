@@ -46,7 +46,7 @@ public:
         glUniform4f(getLocation(parameter), v1, v2, v3, v4);
     }
 
-    inline void setm4(const char* parameter, const float* matrix, GLsizei count = 1, GLboolean transpose = GL_FALSE) {
-        glUniformMatrix4fv(getLocation(parameter), count, transpose, matrix);
+    inline void set(const char* parameter, glm::mat4& matrix, GLsizei count = 1, GLboolean transpose = GL_FALSE) {
+        glUniformMatrix4fv(getLocation(parameter), count, transpose, glm::value_ptr(matrix));
     }
 };
