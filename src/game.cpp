@@ -26,6 +26,10 @@ Game::~Game() {
 		delete m_window;
 		m_window = nullptr;
 	}
+    if (m_camera) {
+        delete m_camera;
+        m_camera = nullptr;
+    }
 	std::cout << "Game components cleaned up." << std::endl;
 }
 
@@ -33,6 +37,7 @@ void Game::init() {
 	m_window = new Window(defaultWidth, defaultHeight, "Minecraft Clone");
 	m_renderer = new Renderer();
 	m_shader = new Shader(vertexShaderPath, fragmentShaderPath);
+    m_camera = new Camera(glm::vec3(0.f, 0.f, 3.f));
 	if (m_shader->getID() == 0) {
 		std::cerr << "ERROR: Shader program failed to create. Exiting." << std::endl;
 		exit(EXIT_FAILURE);
@@ -77,5 +82,5 @@ void Game::update() {
 void Game::render() {
 	m_renderer->clear();
 
-	m_renderer->draw(*m_triangleMesh, *m_shader);
+	m_renderer->draw(*m_triangleMesh, *m_shader, *m_camera);
 }
