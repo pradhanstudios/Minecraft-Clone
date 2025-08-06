@@ -5,6 +5,7 @@
 #include "renderer.hpp"
 #include "shader.hpp"
 #include "window.hpp"
+#include "camera.hpp"
 
 class Game {
 public:
@@ -22,6 +23,7 @@ private:
 	Renderer* m_renderer; // Pointer to the Renderer object
 	Shader* m_shader;   // Pointer to the Shader object
 	Mesh* m_triangleMesh; // Pointer to the Mesh object for the triangle
+    Camera* m_camera;
 
 	// Private helper function to initialize all components
 	void init();
