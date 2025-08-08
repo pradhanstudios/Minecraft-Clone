@@ -22,7 +22,8 @@ void Renderer::draw(const Mesh& mesh, Shader& shader, const Camera& camera) {
     shader.setm4("projection", glm::value_ptr(camera.getProjection()));
     shader.setm4("view", glm::value_ptr(camera.getView()));
 	mesh.bind();
-	glDrawArrays(GL_TRIANGLES, 0, mesh.getVertexCount());
+	// glDrawArrays(GL_TRIANGLES, 0, mesh.getVertexCount());
+    glDrawElements(GL_TRIANGLES, mesh.getIndexCount(), GL_UNSIGNED_INT, 0);
 	mesh.unbind();
 	shader.disable();
 }
