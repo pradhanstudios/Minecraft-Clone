@@ -129,6 +129,9 @@ void Game::processInput() {
     if (m_window->isKeyPressed(GLFW_KEY_D)) {
 	    m_camera->setPosition(m_camera->getPosition() + m_camera->getRightAxis() * cameraDefaultSpeed);	
 	}
+    if (m_window->isKeyPressed(GLFW_KEY_F)) {
+        m_renderer->toggleWireframeDraw();
+    }
 }
 
 void Game::mouseCallback(GLFWwindow* window, double posX, double posY) {
