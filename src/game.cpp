@@ -117,18 +117,29 @@ void Game::processInput() {
 	if (m_window->isKeyPressed(GLFW_KEY_ESCAPE)) {
 		glfwSetWindowShouldClose(m_window->getGLFWwindow(), true);
 	}
+
 	if (m_window->isKeyPressed(GLFW_KEY_W)) {
 	    m_camera->setPosition(m_camera->getPosition() + m_camera->getFront() * cameraDefaultSpeed);	
 	}
+
 	if (m_window->isKeyPressed(GLFW_KEY_S)) {
 	    m_camera->setPosition(m_camera->getPosition() - m_camera->getFront() * cameraDefaultSpeed);	
 	}
+
     if (m_window->isKeyPressed(GLFW_KEY_A)) {
 	    m_camera->setPosition(m_camera->getPosition() - m_camera->getRightAxis() * cameraDefaultSpeed);
 	}
+
     if (m_window->isKeyPressed(GLFW_KEY_D)) {
 	    m_camera->setPosition(m_camera->getPosition() + m_camera->getRightAxis() * cameraDefaultSpeed);	
 	}
+
+    if (m_window->isKeyPressed(GLFW_KEY_LEFT_CONTROL)) {
+        m_camera->setPosition(m_camera->getPosition() - glm::vec3(0.f, 1.f, 0.f) * cameraDefaultSpeed);
+    }
+    if (m_window->isKeyPressed(GLFW_KEY_SPACE)) {
+        m_camera->setPosition(m_camera->getPosition() + glm::vec3(0.f, 1.f, 0.f) * cameraDefaultSpeed);
+    }
     if (m_window->isKeyPressed(GLFW_KEY_F)) {
         m_renderer->toggleWireframeDraw();
     }
