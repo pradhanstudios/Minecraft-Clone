@@ -5,33 +5,53 @@
 #include "renderer.hpp"
 #include "shader.hpp"
 #include "window.hpp"
+#include <vector>
+
+
+class RenderableObject {
+public:
+	Mesh* m_mesh;
+	Shader* m_shader;
+
+	RenderableObject(Mesh* mesh, Shader* shader)
+		: m_mesh(mesh), m_shader(shader) {
+	}
+
+	~RenderableObject() {
+		if (m_mesh) {
+			delete m_mesh;
+		}
+		if (m_shader) {
+			delete m_shader;
+		}
+	}
+
+	void draw() const {
+		if (m_mesh && m_shader) {
+			m_shader->enable();
+			m_mesh->bind();
+			glDrawElements(GL_TRIANGLES, m_mesh->getIndexCount(), GL_UNSIGNED_INT, 0);
+			m_mesh->unbind();
+		}
+	}
+};
+
 
 class Game {
 public:
-	// Constructor: Initializes the Game components.
 	Game();
-
-	// Destructor: Cleans up Game components.
 	~Game();
 
-	// Runs the main game loop.
 	void run();
 
 private:
-	Window* m_window;   // Pointer to the Window object
-	Renderer* m_renderer; // Pointer to the Renderer object
-	Shader* m_shader;   // Pointer to the Shader object
-	Mesh* m_triangleMesh; // Pointer to the Mesh object for the triangle
+	Window* m_window;
+	Renderer* m_renderer;
 
-	// Private helper function to initialize all components
+	std::vector<RenderableObject*> m_renderables;
+
 	void init();
-
-	// Private helper function to handle input
 	void processInput();
-
-	// Private helper function to update game state (empty for now)
 	void update();
-
-	// Private helper function to render the scene
 	void render();
 };
