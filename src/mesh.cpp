@@ -2,23 +2,30 @@
 #include <iostream>
 
 // Constructor
-Mesh::Mesh(const float* vertices, size_t numFloats)
-	: m_VAO(0), m_VBO(0), m_vertexCount(numFloats / 3) {
+Mesh::Mesh(const float* vertices, size_t numVertices, const uint* indices, size_t numIndices)
+	: m_VAO(0), m_VBO(0), m_EBO(0), m_vertexCount(numVertices / 3), m_indexCount(numIndices) {
 
 	glGenVertexArrays(1, &m_VAO);
 	glGenBuffers(1, &m_VBO);
+	glGenBuffers(1, &m_EBO);
 
 	glBindVertexArray(m_VAO);
-	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
 
-	glBufferData(GL_ARRAY_BUFFER, numFloats * sizeof(float), vertices, GL_STATIC_DRAW);
+	// vertex data
+	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+	glBufferData(GL_ARRAY_BUFFER, numVertices * sizeof(float), vertices, GL_STATIC_DRAW);
+
+	// index data
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, numIndices * sizeof(uint), indices, GL_STATIC_DRAW);
 
 	setupVertexAttributes();
 
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-	std::cout << "Mesh created with VAO: " << m_VAO << ", VBO: " << m_VBO << std::endl;
+	std::cout << "Mesh created with VAO: " << m_VAO << ", VBO: " << m_VBO << ", EBO: " << m_EBO << std::endl;
 }
 
 // Destructor
