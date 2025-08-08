@@ -3,7 +3,7 @@
 #include "constants.hpp"
 
 class Shader {
-	uint m_id;
+	GLuint m_id;
 public:
 	Shader(const char* vertexShaderPath, const char* fragmentShaderPath);
 	~Shader();
