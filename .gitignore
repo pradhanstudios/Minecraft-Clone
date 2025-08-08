@@ -36,13 +36,14 @@
 *.exe
 *.out
 *.app
-MinecraftClone
 
 # debug information files
 *.dwo
 
 # User-defined
+MinecraftClone
 include/glew/
 include/glfw/
 include/glm/
 .vs
+.vscode

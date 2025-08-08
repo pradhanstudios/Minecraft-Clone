@@ -5,11 +5,12 @@
 #include "renderer.hpp"
 #include "shader.hpp"
 #include "window.hpp"
+#include "camera.hpp"
 
 class Game {
 public:
 	// Constructor: Initializes the Game components.
-	Game();
+	Game(uint m_fps=defaultFPS);
 
 	// Destructor: Cleans up Game components.
 	~Game();
@@ -22,6 +23,10 @@ private:
 	Renderer* m_renderer; // Pointer to the Renderer object
 	Shader* m_shader;   // Pointer to the Shader object
 	Mesh* m_triangleMesh; // Pointer to the Mesh object for the triangle
+    Camera* m_camera;
+    double m_mousePosX;
+    double m_mousePosY;
+    uint m_fps;
 
 	// Private helper function to initialize all components
 	void init();
@@ -29,9 +34,12 @@ private:
 	// Private helper function to handle input
 	void processInput();
 
+    static void mouseCallback(GLFWwindow* window, double posX, double posY);
+
 	// Private helper function to update game state (empty for now)
 	void update();
 
 	// Private helper function to render the scene
 	void render();
+
 };

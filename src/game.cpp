@@ -2,8 +2,8 @@
 #include <iostream>
 
 // Constructor
-Game::Game()
-	: m_window(nullptr), m_renderer(nullptr), m_shader(nullptr), m_triangleMesh(nullptr) {
+Game::Game(uint fps)
+	: m_window(nullptr), m_renderer(nullptr), m_shader(nullptr), m_triangleMesh(nullptr), m_fps(fps) {
 	init();
 	std::cout << "Game initialized." << std::endl;
 }
@@ -26,6 +26,10 @@ Game::~Game() {
 		delete m_window;
 		m_window = nullptr;
 	}
+    if (m_camera) {
+        delete m_camera;
+        m_camera = nullptr;
+    }
 	std::cout << "Game components cleaned up." << std::endl;
 }
 
@@ -33,6 +37,13 @@ void Game::init() {
 	m_window = new Window(defaultWidth, defaultHeight, "Minecraft Clone");
 	m_renderer = new Renderer();
 	m_shader = new Shader(vertexShaderPath, fragmentShaderPath);
+    m_camera = new Camera(glm::vec3(0.f, 0.f, 3.f));
+
+    glfwSetWindowUserPointer(m_window->getGLFWwindow(), this);
+    glfwSetCursorPos(m_window->getGLFWwindow(), 0, 0);
+    glfwSetInputMode(m_window->getGLFWwindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetCursorPosCallback(m_window->getGLFWwindow(), mouseCallback);
+
 	if (m_shader->getID() == 0) {
 		std::cerr << "ERROR: Shader program failed to create. Exiting." << std::endl;
 		exit(EXIT_FAILURE);
@@ -44,6 +55,7 @@ void Game::init() {
 		 0.5f, -0.5f, 0.0f,
 		 0.0f,  0.5f, 0.0f
 	};
+
 	m_triangleMesh = new Mesh(vertices, sizeof(vertices) / sizeof(float));
 
 	std::cout << "Game initialization complete." << std::endl;
@@ -59,6 +71,7 @@ void Game::run() {
 
 		m_window->swapBuffers();
 		m_window->pollEvents();
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000 / m_fps));
 	}
 	std::cout << "Game loop finished." << std::endl;
 }
@@ -67,15 +80,37 @@ void Game::processInput() {
 	if (m_window->isKeyPressed(GLFW_KEY_ESCAPE)) {
 		glfwSetWindowShouldClose(m_window->getGLFWwindow(), true);
 	}
-	// Input handling
+	if (m_window->isKeyPressed(GLFW_KEY_W)) {
+	    m_camera->setPosition(m_camera->getPosition() + m_camera->getFront() * cameraDefaultSpeed);	
+	}
+	if (m_window->isKeyPressed(GLFW_KEY_S)) {
+	    m_camera->setPosition(m_camera->getPosition() - m_camera->getFront() * cameraDefaultSpeed);	
+	}
+    if (m_window->isKeyPressed(GLFW_KEY_A)) {
+	    m_camera->setPosition(m_camera->getPosition() - m_camera->getRightAxis() * cameraDefaultSpeed);
+	}
+    if (m_window->isKeyPressed(GLFW_KEY_D)) {
+	    m_camera->setPosition(m_camera->getPosition() + m_camera->getRightAxis() * cameraDefaultSpeed);	
+	}
+}
+
+void Game::mouseCallback(GLFWwindow* window, double posX, double posY) {
+    Game* game = static_cast<Game*>(glfwGetWindowUserPointer(window));
+
+    double offsetX = game->m_mousePosX - posX;
+    double offsetY = game->m_mousePosY - posY;
+    game->m_mousePosX = posX;
+    game->m_mousePosY = posY; 
+    game->m_camera->processMouse(offsetX, offsetY);
 }
 
 void Game::update() {
 	// Movement, physics, AI, animation, updates, etc
+    m_camera->updateView();
 }
 
 void Game::render() {
 	m_renderer->clear();
 
-	m_renderer->draw(*m_triangleMesh, *m_shader);
+	m_renderer->draw(*m_triangleMesh, *m_shader, *m_camera);
 }

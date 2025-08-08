@@ -3,7 +3,7 @@
 #include "constants.hpp"
 
 class Shader {
-	uint m_id;
+	GLuint m_id;
 public:
 	Shader(const char* vertexShaderPath, const char* fragmentShaderPath);
 	~Shader();
@@ -44,7 +44,11 @@ public:
 		glUniform4f(getLocation(parameter), v1, v2, v3, v4);
 	}
 
-	inline void setm4(const char* parameter, const float* matrix, GLsizei count = 1, GLboolean transpose = GL_FALSE) const {
-		glUniformMatrix4fv(getLocation(parameter), count, transpose, matrix);
-	}
+    inline void set(const char* parameter, float v1, float v2, float v3, float v4) {
+        glUniform4f(getLocation(parameter), v1, v2, v3, v4);
+    }
+
+    inline void setm4(const char* parameter, const float* matrix, GLsizei count = 1, GLboolean transpose = GL_FALSE) {
+        glUniformMatrix4fv(getLocation(parameter), count, transpose, matrix);
+    }
 };
