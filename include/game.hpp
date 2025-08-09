@@ -22,7 +22,7 @@ private:
 	Window* m_window;   // Pointer to the Window object
 	Renderer* m_renderer; // Pointer to the Renderer object
 	Shader* m_shader;   // Pointer to the Shader object
-	Mesh* m_triangleMesh; // Pointer to the Mesh object for the triangle
+	Mesh* m_cubeMesh; // Pointer to the Mesh object for the triangle
     Camera* m_camera;
     double m_mousePosX;
     double m_mousePosY;

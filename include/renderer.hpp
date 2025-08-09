@@ -14,7 +14,8 @@ public:
 
 	void draw(const Mesh& mesh, Shader& shader, const Camera& camera);
 	void setClearColor(float r, float g, float b, float a);
+    void toggleWireframeDraw();
 
 private:
-	//
+    bool m_FillDraw;
 };
