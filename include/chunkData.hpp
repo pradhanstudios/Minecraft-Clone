@@ -24,14 +24,34 @@ public:
     }
 
     inline Block getBlock(uint x, uint y, uint z) const {
-        return (m_data[coordTo1D(x, y, z)]);
+        return m_data[coordTo1D(x, y, z)];
+    }
+
+    inline Block getBlock(uint i) const {
+        return m_data[i];
     }
 
     inline void setBlock(uint x, uint y, uint z, Block& block) {
         m_data[coordTo1D(x, y, z)] = block;
     }
 
+    inline void setBlock(uint i, Block& block) {
+        m_data[i] = block;
+    }
+
     inline Block* getPointer() {
         return m_data;
+    }
+
+    inline uint getSizeX() {
+        return m_blocksX;
+    }
+ 
+    inline uint getSizeY() {
+        return m_blocksY;
+    }
+
+    inline uint getSizeZ() {
+        return m_blocksZ;
     }
 };
