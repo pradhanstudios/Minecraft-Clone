@@ -30,6 +30,10 @@ Game::~Game() {
         delete m_camera;
         m_camera = nullptr;
     }
+    if (m_chunk) {
+        delete m_chunk;
+        m_chunk = nullptr;
+    }
 	std::cout << "Game components cleaned up." << std::endl;
 }
 
@@ -59,42 +63,45 @@ void Game::init() {
 	// m_triangleMesh = new Mesh(vertices, sizeof(vertices) / sizeof(float));
 
 
-    float vertices[] = {
-        // front
-        -1.0, -1.0,  1.0,
-         1.0, -1.0,  1.0,
-         1.0,  1.0,  1.0,
-        -1.0,  1.0,  1.0,
-        // back
-        -1.0, -1.0, -1.0,
-         1.0, -1.0, -1.0,
-         1.0,  1.0, -1.0,
-        -1.0,  1.0, -1.0
-    };
+	//    float vertices[] = {
+	//        // front
+	//        -1.0, -1.0,  1.0,
+	//         1.0, -1.0,  1.0,
+	//         1.0,  1.0,  1.0,
+	//        -1.0,  1.0,  1.0,
+	//        // back
+	//        -1.0, -1.0, -1.0,
+	//         1.0, -1.0, -1.0,
+	//         1.0,  1.0, -1.0,
+	//        -1.0,  1.0, -1.0
+	//    };
+	//
+	//    uint elements[] = {
+	// 	// front
+	// 	0, 1, 2,
+	// 	2, 3, 0,
+	// 	// right
+	// 	1, 5, 6,
+	// 	6, 2, 1,
+	// 	// back
+	// 	7, 6, 5,
+	// 	5, 4, 7,
+	// 	// left
+	// 	4, 0, 3,
+	// 	3, 7, 4,
+	// 	// bottom
+	// 	4, 5, 1,
+	// 	1, 0, 4,
+	// 	// top
+	// 	3, 2, 6,
+	// 	6, 7, 3
+	// };
+    
 
-    uint elements[] = {
-		// front
-		0, 1, 2,
-		2, 3, 0,
-		// right
-		1, 5, 6,
-		6, 2, 1,
-		// back
-		7, 6, 5,
-		5, 4, 7,
-		// left
-		4, 0, 3,
-		3, 7, 4,
-		// bottom
-		4, 5, 1,
-		1, 0, 4,
-		// top
-		3, 2, 6,
-		6, 7, 3
-	};
+    // m_cubeMesh = new Mesh(&vertices[0], sizeof(vertices) / sizeof(float), &elements[0], sizeof(elements) / sizeof(uint));
 
-    m_cubeMesh = new Mesh(&vertices[0], sizeof(vertices) / sizeof(float), &elements[0], sizeof(elements) / sizeof(uint));
-
+    m_chunk = new Chunk(16, 1, 16, glm::vec3(0.f, 0.f, -20.f));
+    m_chunk->generate();
 	std::cout << "Game initialization complete." << std::endl;
 }
 
