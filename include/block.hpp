@@ -13,6 +13,10 @@ enum {
 class Block {
 public:
     bool transparent;
+
+    inline bool isTransparent() {
+        return transparent;
+    }
 };
 
 inline Block blockArray[NUMBER_OF_BLOCKS] = {};
