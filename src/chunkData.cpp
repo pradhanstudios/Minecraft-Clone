@@ -1,8 +1,8 @@
 #include "chunkData.hpp"
 
-ChunkData::ChunkData(uint blocksX, uint blocksY, uint blocksZ) {
-    m_blocksX = blocksX;
-    m_blocksY = blocksY;
-    m_blocksZ = blocksZ;
+ChunkData::ChunkData(uint sizeX, uint sizeY, uint sizeZ) {
+    m_sizeX = sizeX;
+    m_sizeY = sizeY;
+    m_sizeZ = sizeZ;
     m_data = new Block[getLength()];
 }
