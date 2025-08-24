@@ -19,3 +19,68 @@ constexpr float cameraDefaultSensitivity = 0.05f;
 constexpr float cameraDefaultZoom = 30.f;
 constexpr float cameraDefaultFOV = 90.f;
 constexpr float cameraDefaultSpeed = 0.1f;
+// Front face (z = 1)
+float cubeVerticesFront[] = {
+    0.0f, 0.0f, 1.0f,
+    1.0f, 0.0f, 1.0f,
+    1.0f, 1.0f, 1.0f,
+
+    1.0f, 1.0f, 1.0f,
+    0.0f, 1.0f, 1.0f,
+    0.0f, 0.0f, 1.0f
+};
+
+// Back face (z = 0)
+float cubeVerticesBack[] = {
+    1.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f,
+    0.0f, 1.0f, 0.0f,
+
+    0.0f, 1.0f, 0.0f,
+    1.0f, 1.0f, 0.0f,
+    1.0f, 0.0f, 0.0f
+};
+
+// Left face (x = 0)
+float cubeVerticesLeft[] = {
+    0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 1.0f,
+    0.0f, 1.0f, 1.0f,
+
+    0.0f, 1.0f, 1.0f,
+    0.0f, 1.0f, 0.0f,
+    0.0f, 0.0f, 0.0f
+};
+
+// Right face (x = 1)
+float cubeVerticesRight[] = {
+    1.0f, 0.0f, 1.0f,
+    1.0f, 0.0f, 0.0f,
+    1.0f, 1.0f, 0.0f,
+
+    1.0f, 1.0f, 0.0f,
+    1.0f, 1.0f, 1.0f,
+    1.0f, 0.0f, 1.0f
+};
+
+// Top face (y = 1)
+float cubeVerticesTop[] = {
+    0.0f, 1.0f, 1.0f,
+    1.0f, 1.0f, 1.0f,
+    1.0f, 1.0f, 0.0f,
+
+    1.0f, 1.0f, 0.0f,
+    0.0f, 1.0f, 0.0f,
+    0.0f, 1.0f, 1.0f
+};
+
+// Bottom face (y = 0)
+float cubeVerticesBottom[] = {
+    0.0f, 0.0f, 0.0f,
+    1.0f, 0.0f, 0.0f,
+    1.0f, 0.0f, 1.0f,
+
+    1.0f, 0.0f, 1.0f,
+    0.0f, 0.0f, 1.0f,
+    0.0f, 0.0f, 0.0f
+};
