@@ -4,23 +4,35 @@
 
 class ChunkData {
     Block* m_data;
-    uint m_blocksX;
-    uint m_blocksY;
-    uint m_blocksZ;
+    uint m_sizeX;
+    uint m_sizeY;
+    uint m_sizeZ;
     
     inline uint coordTo1D(uint x, uint y, uint z) const {
-        assert(x < m_blocksX);
-        assert(y < m_blocksY);
-        assert(z < m_blocksZ);
-        return x + (y * m_blocksY) + (z * m_blocksY * m_blocksZ);
+        assert(x < m_sizeX);
+        assert(y < m_sizeY);
+        assert(z < m_sizeZ);
+        return x + (y * m_sizeY) + (z * m_sizeY * m_sizeZ);
     }
 
 public:
-    ChunkData(uint blocksX, uint blocksY, uint blocksZ);
+    ChunkData(uint sizeX, uint sizeY, uint sizeZ);
     ~ChunkData() { delete[] m_data; }
     
     inline size_t getLength() const {
-        return m_blocksX * m_blocksY * m_blocksZ;
+        return m_sizeX * m_sizeY * m_sizeZ;
+    }
+
+    inline size_t getSizeX() const {
+        return m_sizeX;
+    }
+
+    inline size_t getSizeY() const {
+        return m_sizeY;
+    }
+    
+    inline size_t getSizeZ() const {
+        return m_sizeZ;
     }
 
     inline Block getBlock(uint x, uint y, uint z) const {
