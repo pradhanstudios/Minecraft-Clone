@@ -6,7 +6,7 @@
 
 class Mesh {
 public:
-	Mesh(const float* vertices, size_t numVertices, const uint* indices, size_t numIndices);
+	Mesh(const float* vertices, size_t numVertices, const uint* indices=nullptr, size_t numIndices=0);
 	~Mesh();
 
 	void bind() const;
