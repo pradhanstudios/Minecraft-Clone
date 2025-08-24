@@ -6,6 +6,7 @@
 #include "shader.hpp"
 #include "window.hpp"
 #include "camera.hpp"
+#include "chunk.hpp"
 
 class Game {
 public:
@@ -24,6 +25,7 @@ private:
 	Shader* m_shader;   // Pointer to the Shader object
 	Mesh* m_cubeMesh; // Pointer to the Mesh object for the triangle
     Camera* m_camera;
+    Chunk* m_chunk;
     double m_mousePosX;
     double m_mousePosY;
     uint m_fps;
