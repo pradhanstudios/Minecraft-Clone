@@ -56,14 +56,14 @@ public:
     }
 
     inline uint getSizeX() {
-        return m_blocksX;
+        return m_sizeX;
     }
  
     inline uint getSizeY() {
-        return m_blocksY;
+        return m_sizeY;
     }
 
     inline uint getSizeZ() {
-        return m_blocksZ;
+        return m_sizeZ;
     }
 };
