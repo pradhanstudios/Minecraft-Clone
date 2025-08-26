@@ -101,7 +101,12 @@ void Game::init() {
     // m_cubeMesh = new Mesh(&vertices[0], sizeof(vertices) / sizeof(float), &elements[0], sizeof(elements) / sizeof(uint));
 
     m_chunk = new Chunk(16, 1, 16, glm::vec3(0.f, 0.f, -20.f));
+    std::cout << "Created Chunk object" << std::endl;
     m_chunk->generate();
+    std::cout << "Generated Chunk" << std::endl;
+    m_chunk->updateMesh();
+    std::cout << "Created Mesh for Chunk" << std::endl;
+    printf("chunk mesh exists?: %i", !!m_chunk->getMesh());
 	std::cout << "Game initialization complete." << std::endl;
 }
 
@@ -170,5 +175,5 @@ void Game::update() {
 void Game::render() {
 	m_renderer->clear();
 
-	m_renderer->draw(*m_cubeMesh, *m_shader, *m_camera);
+	m_renderer->draw(*m_chunk->getMesh(), *m_shader, *m_camera);
 }

@@ -10,6 +10,7 @@ Camera::Camera(glm::vec3 position, float fov, float yaw, float pitch, float sens
     m_projection = glm::perspective(glm::radians(m_fov), float(defaultWidth) / float(defaultHeight), 0.1f, 100.f);
     updateVectors();
     updateView();
+    std::cout << "Camera initialized" << std::endl;
 }
 
 void Camera::processMouse(double offsetX, double offsetY) {
