@@ -14,6 +14,7 @@ public:
 
 	size_t getVertexCount() const { return m_vertexCount; }
 	size_t getIndexCount() const { return m_indexCount; }
+    GLuint getVBOID() const { return m_VBO; }
 
 private:
 	GLuint m_VAO;			// Vertex Array Object ID
