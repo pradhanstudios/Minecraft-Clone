@@ -100,7 +100,7 @@ void Game::init() {
 
     // m_cubeMesh = new Mesh(&vertices[0], sizeof(vertices) / sizeof(float), &elements[0], sizeof(elements) / sizeof(uint));
 
-    m_chunk = new Chunk(16, 1, 16, glm::vec3(0.f, 0.f, -20.f));
+    m_chunk = new Chunk(16, 2, 16, glm::vec3(-8.f, -8.f, 0.f));
     std::cout << "Created Chunk object" << std::endl;
     m_chunk->generate();
     std::cout << "Generated Chunk" << std::endl;
