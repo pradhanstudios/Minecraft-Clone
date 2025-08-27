@@ -27,7 +27,7 @@ void Chunk::updateMesh() {
             continue;
         }
         
-        glm::vec3 offset = {float(x), float(y), float(z)};
+        glm::vec3 offset = glm::vec3(float(x), float(y), float(z)) + m_position;
         addFace(vertices, cubeVerticesFront, faceSize, offset);
         addFace(vertices, cubeVerticesBack, faceSize, offset);
         addFace(vertices, cubeVerticesLeft, faceSize, offset);
