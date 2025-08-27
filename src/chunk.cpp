@@ -1,9 +1,11 @@
 #include "chunk.hpp"
 
-void addFace(std::vector<float>& vertices, const float* face, size_t face_length) {
+void addFace(std::vector<float>& vertices, const float* face, size_t face_length, glm::vec3 offset) {
     vertices.reserve(vertices.size() + face_length);
-    for (int i = 0; i < face_length; i++) {
-        vertices.push_back(face[i]);
+    for (int i = 0; i < face_length; i += 3) {
+        vertices.push_back(face[i] + offset.x);
+        vertices.push_back(face[i+1] + offset.y);
+        vertices.push_back(face[i+2] + offset.z);
     }
 }
 
@@ -25,12 +27,13 @@ void Chunk::updateMesh() {
             continue;
         }
         
-        addFace(vertices, cubeVerticesFront, faceSize);
-        addFace(vertices, cubeVerticesBack, faceSize);
-        addFace(vertices, cubeVerticesLeft, faceSize);
-        addFace(vertices, cubeVerticesRight, faceSize);
-        addFace(vertices, cubeVerticesTop, faceSize);
-        addFace(vertices, cubeVerticesBottom, faceSize);
+        glm::vec3 offset = {float(x), float(y), float(z)};
+        addFace(vertices, cubeVerticesFront, faceSize, offset);
+        addFace(vertices, cubeVerticesBack, faceSize, offset);
+        addFace(vertices, cubeVerticesLeft, faceSize, offset);
+        addFace(vertices, cubeVerticesRight, faceSize, offset);
+        addFace(vertices, cubeVerticesTop, faceSize, offset);
+        addFace(vertices, cubeVerticesBottom, faceSize, offset);
     }
 
     if (m_mesh) {
