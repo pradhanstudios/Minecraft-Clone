@@ -19,6 +19,9 @@ void Camera::processMouse(double offsetX, double offsetY) {
 
     m_yaw -= offsetX;
     m_pitch += offsetY;
+    // clamp pitch value
+    if (m_pitch < -89.f) m_pitch = -89.f;
+    if (m_pitch > 89.f) m_pitch = 89.f;
     updateVectors();
 }
 
