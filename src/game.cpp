@@ -106,7 +106,6 @@ void Game::init() {
     std::cout << "Generated Chunk" << std::endl;
     m_chunk->updateMesh();
     std::cout << "Created Mesh for Chunk" << std::endl;
-    printf("chunk mesh exists?: %i", !!m_chunk->getMesh());
 	std::cout << "Game initialization complete." << std::endl;
 }
 

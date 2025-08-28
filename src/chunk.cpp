@@ -44,8 +44,6 @@ void Chunk::updateMesh() {
     }
 
     else {
-        std::cout << "got here" << std::endl;
         m_mesh = new Mesh(vertices.data(), vertices.size());
-        std::cout << "got here" << std::endl;
     }
 }
