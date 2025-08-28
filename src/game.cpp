@@ -148,12 +148,19 @@ void Game::processInput() {
     if (m_window->isKeyPressed(GLFW_KEY_LEFT_CONTROL)) {
         m_camera->setPosition(m_camera->getPosition() - glm::vec3(0.f, 1.f, 0.f) * cameraDefaultSpeed);
     }
+
     if (m_window->isKeyPressed(GLFW_KEY_SPACE)) {
         m_camera->setPosition(m_camera->getPosition() + glm::vec3(0.f, 1.f, 0.f) * cameraDefaultSpeed);
     }
-    if (m_window->isKeyPressed(GLFW_KEY_F)) {
+
+    static bool fKeyLastState = false;
+    bool fKeyCurrentState = m_window->isKeyPressed(GLFW_KEY_F);
+
+    if (fKeyCurrentState && !fKeyLastState) {
         m_renderer->toggleWireframeDraw();
     }
+
+    fKeyLastState = fKeyCurrentState;
 }
 
 void Game::mouseCallback(GLFWwindow* window, double posX, double posY) {
