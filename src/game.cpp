@@ -115,7 +115,6 @@ void Game::run() {
     deltaTime = 1 / m_fps;
     std::this_thread::sleep_for(std::chrono::milliseconds(int(deltaTime * 1000)));
 	while (!m_window->shouldClose()) {
-        std::cout << "Current FPS: " << 1.f / deltaTime << std::endl;
 		processInput();	// User input
 		update();		// Game state update
 		render();       // Draw frame
