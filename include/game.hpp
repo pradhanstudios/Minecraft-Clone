@@ -7,6 +7,7 @@
 #include "window.hpp"
 #include "camera.hpp"
 #include "chunk.hpp"
+#include "deltaTime.hpp"
 
 class Game {
 public:
