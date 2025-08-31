@@ -15,10 +15,10 @@ constexpr uint defaultHeight = 720;
 constexpr uint defaultFPS = 60;
 constexpr float cameraDefaultYaw = -90.f;
 constexpr float cameraDefaultPitch = 0.f;
-constexpr float cameraDefaultSensitivity = 0.05f;
+constexpr float cameraDefaultSensitivity = 5.f;
 constexpr float cameraDefaultZoom = 30.f;
 constexpr float cameraDefaultFOV = 90.f;
-constexpr float cameraDefaultSpeed = 0.1f;
+constexpr float cameraDefaultSpeed = 5.f;
 // Front face (z = 1)
 constexpr float cubeVerticesFront[] = {
     0.0f, 0.0f, 1.0f,
