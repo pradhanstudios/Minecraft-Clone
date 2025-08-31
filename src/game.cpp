@@ -112,14 +112,18 @@ void Game::init() {
 // Main loop
 void Game::run() {
 	std::cout << "Game running..." << std::endl;
+    deltaTime = 1 / m_fps;
+    std::this_thread::sleep_for(std::chrono::milliseconds(int(deltaTime * 1000)));
 	while (!m_window->shouldClose()) {
+        std::cout << "Current FPS: " << 1.f / deltaTime << std::endl;
 		processInput();	// User input
 		update();		// Game state update
 		render();       // Draw frame
 
 		m_window->swapBuffers();
 		m_window->pollEvents();
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000 / m_fps));
+        updateDeltaTime();
+        std::this_thread::sleep_for(std::chrono::milliseconds(std::max(int(1000 / m_fps - deltaTime * 1000), 0)));
 	}
 	std::cout << "Game loop finished." << std::endl;
 }
@@ -130,27 +134,27 @@ void Game::processInput() {
 	}
 
 	if (m_window->isKeyPressed(GLFW_KEY_W)) {
-	    m_camera->setPosition(m_camera->getPosition() + m_camera->getFront() * cameraDefaultSpeed);	
+	    m_camera->setPosition(m_camera->getPosition() + m_camera->getFront() * cameraDefaultSpeed * deltaTime);	
 	}
 
 	if (m_window->isKeyPressed(GLFW_KEY_S)) {
-	    m_camera->setPosition(m_camera->getPosition() - m_camera->getFront() * cameraDefaultSpeed);	
+	    m_camera->setPosition(m_camera->getPosition() - m_camera->getFront() * cameraDefaultSpeed * deltaTime);	
 	}
 
     if (m_window->isKeyPressed(GLFW_KEY_A)) {
-	    m_camera->setPosition(m_camera->getPosition() - m_camera->getRightAxis() * cameraDefaultSpeed);
+	    m_camera->setPosition(m_camera->getPosition() - m_camera->getRightAxis() * cameraDefaultSpeed * deltaTime);
 	}
 
     if (m_window->isKeyPressed(GLFW_KEY_D)) {
-	    m_camera->setPosition(m_camera->getPosition() + m_camera->getRightAxis() * cameraDefaultSpeed);	
+	    m_camera->setPosition(m_camera->getPosition() + m_camera->getRightAxis() * cameraDefaultSpeed * deltaTime);	
 	}
 
     if (m_window->isKeyPressed(GLFW_KEY_LEFT_CONTROL)) {
-        m_camera->setPosition(m_camera->getPosition() - glm::vec3(0.f, 1.f, 0.f) * cameraDefaultSpeed);
+        m_camera->setPosition(m_camera->getPosition() - glm::vec3(0.f, 1.f, 0.f) * cameraDefaultSpeed * deltaTime);
     }
 
     if (m_window->isKeyPressed(GLFW_KEY_SPACE)) {
-        m_camera->setPosition(m_camera->getPosition() + glm::vec3(0.f, 1.f, 0.f) * cameraDefaultSpeed);
+        m_camera->setPosition(m_camera->getPosition() + glm::vec3(0.f, 1.f, 0.f) * cameraDefaultSpeed * deltaTime);
     }
 
     static bool fKeyLastState = false;
@@ -166,8 +170,8 @@ void Game::processInput() {
 void Game::mouseCallback(GLFWwindow* window, double posX, double posY) {
     Game* game = static_cast<Game*>(glfwGetWindowUserPointer(window));
 
-    double offsetX = game->m_mousePosX - posX;
-    double offsetY = game->m_mousePosY - posY;
+    double offsetX = (game->m_mousePosX - posX) * deltaTime;
+    double offsetY = (game->m_mousePosY - posY) * deltaTime;
     game->m_mousePosX = posX;
     game->m_mousePosY = posY; 
     game->m_camera->processMouse(offsetX, offsetY);
