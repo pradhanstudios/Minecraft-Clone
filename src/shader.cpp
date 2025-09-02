@@ -100,6 +100,7 @@ Shader::Shader(const char* vertexShaderPath, const char* fragmentShaderPath) {
 
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
+    std::cout << "Shader initialized" << std::endl;
 }
 
 Shader::~Shader() {

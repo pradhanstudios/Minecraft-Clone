@@ -6,7 +6,7 @@
 
 class Mesh {
 public:
-	Mesh(const float* vertices, size_t numVertices, const uint* indices, size_t numIndices);
+	Mesh(const float* vertices, size_t numVertices, const uint* indices=nullptr, size_t numIndices=0);
 	~Mesh();
 
 	void bind() const;
@@ -14,6 +14,7 @@ public:
 
 	size_t getVertexCount() const { return m_vertexCount; }
 	size_t getIndexCount() const { return m_indexCount; }
+    GLuint getVBOID() const { return m_VBO; }
 
 private:
 	GLuint m_VAO;			// Vertex Array Object ID

@@ -7,6 +7,7 @@ Window::Window(int width, int height, const char* title)
 	initGLFW();     // Initialize GLFW
 	createWindow(); // Create the GLFW window
 	initGLEW();     // Initialize GLEW after context is current
+    std::cout << "Window initialized" << std::endl;
 }
 
 // Destructor

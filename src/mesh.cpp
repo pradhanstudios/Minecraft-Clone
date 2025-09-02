@@ -7,7 +7,8 @@ Mesh::Mesh(const float* vertices, size_t numVertices, const uint* indices, size_
 
 	glGenVertexArrays(1, &m_VAO);
 	glGenBuffers(1, &m_VBO);
-	glGenBuffers(1, &m_EBO);
+    if (indices)
+        glGenBuffers(1, &m_EBO);
 
 	glBindVertexArray(m_VAO);
 
@@ -16,8 +17,10 @@ Mesh::Mesh(const float* vertices, size_t numVertices, const uint* indices, size_
 	glBufferData(GL_ARRAY_BUFFER, numVertices * sizeof(float), vertices, GL_STATIC_DRAW);
 
 	// index data
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, numIndices * sizeof(uint), indices, GL_STATIC_DRAW);
+    if (indices) {
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, numIndices * sizeof(uint), indices, GL_STATIC_DRAW);
+    }
 
 	setupVertexAttributes();
 
