@@ -19,11 +19,13 @@ class Camera {
     void updateVectors();
 public:
     Camera(glm::vec3 position, float fov=cameraDefaultFOV, float yaw=cameraDefaultYaw, float pitch=cameraDefaultPitch, float sensitivity=cameraDefaultSensitivity, float zoom=cameraDefaultZoom);
-    void processMouse(double offsetX, double offsetY);
-    
+
     ~Camera() {
         std::cout << "Camera has been destroyed." << std::endl;
     }
+
+    void processMouse(double offsetX, double offsetY);
+
 
     inline void updateView() {
         m_view = glm::lookAt(m_position, m_position + m_front, m_upAxis);
