@@ -7,12 +7,17 @@ class Chunk {
     ChunkData m_chunkData;
     Mesh* m_mesh;
     glm::vec3 m_position;
+    bool m_generated;
 
 public:
-    Chunk(uint sizeX, uint sizeY, uint sizeZ, glm::vec3 position) : m_chunkData(sizeX, sizeY, sizeZ), m_mesh(nullptr), m_position(position) {} 
+    Chunk(glm::vec3 position) : m_chunkData(), m_mesh(nullptr), m_position(position), m_generated(false) {}
 
     inline Mesh* getMesh() {
         return m_mesh;
+    }
+
+    inline bool hasBeenGenerated() {
+        return m_generated;
     }
 
     void generate();
