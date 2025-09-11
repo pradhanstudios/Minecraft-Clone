@@ -8,6 +8,7 @@
 #include "camera.hpp"
 #include "chunk.hpp"
 #include "deltaTime.hpp"
+#include "world.hpp"
 
 class Game {
 public:
@@ -24,9 +25,9 @@ private:
 	Window* m_window;   // Pointer to the Window object
 	Renderer* m_renderer; // Pointer to the Renderer object
 	Shader* m_shader;   // Pointer to the Shader object
-	Mesh* m_cubeMesh; // Pointer to the Mesh object for the triangle
     Camera* m_camera;
-    Chunk* m_chunk;
+    World* m_world;
+
     double m_mousePosX;
     double m_mousePosY;
     uint m_fps;
