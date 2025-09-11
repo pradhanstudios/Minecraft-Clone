@@ -96,11 +96,11 @@ void Game::init() {
 	// 	3, 2, 6,
 	// 	6, 7, 3
 	// };
-    
+
 
     // m_cubeMesh = new Mesh(&vertices[0], sizeof(vertices) / sizeof(float), &elements[0], sizeof(elements) / sizeof(uint));
 
-    m_chunk = new Chunk(16, 2, 16, glm::vec3(-8.f, -8.f, 0.f));
+    m_chunk = new Chunk(glm::vec3(-8.f, -8.f, 0.f));
     std::cout << "Created Chunk object" << std::endl;
     m_chunk->generate();
     std::cout << "Generated Chunk" << std::endl;
@@ -133,11 +133,11 @@ void Game::processInput() {
 	}
 
 	if (m_window->isKeyPressed(GLFW_KEY_W)) {
-	    m_camera->setPosition(m_camera->getPosition() + m_camera->getFront() * cameraDefaultSpeed * deltaTime);	
+	    m_camera->setPosition(m_camera->getPosition() + m_camera->getFront() * cameraDefaultSpeed * deltaTime);
 	}
 
 	if (m_window->isKeyPressed(GLFW_KEY_S)) {
-	    m_camera->setPosition(m_camera->getPosition() - m_camera->getFront() * cameraDefaultSpeed * deltaTime);	
+	    m_camera->setPosition(m_camera->getPosition() - m_camera->getFront() * cameraDefaultSpeed * deltaTime);
 	}
 
     if (m_window->isKeyPressed(GLFW_KEY_A)) {
@@ -145,7 +145,7 @@ void Game::processInput() {
 	}
 
     if (m_window->isKeyPressed(GLFW_KEY_D)) {
-	    m_camera->setPosition(m_camera->getPosition() + m_camera->getRightAxis() * cameraDefaultSpeed * deltaTime);	
+	    m_camera->setPosition(m_camera->getPosition() + m_camera->getRightAxis() * cameraDefaultSpeed * deltaTime);
 	}
 
     if (m_window->isKeyPressed(GLFW_KEY_LEFT_CONTROL)) {
@@ -172,7 +172,7 @@ void Game::mouseCallback(GLFWwindow* window, double posX, double posY) {
     double offsetX = (game->m_mousePosX - posX) * deltaTime;
     double offsetY = (game->m_mousePosY - posY) * deltaTime;
     game->m_mousePosX = posX;
-    game->m_mousePosY = posY; 
+    game->m_mousePosY = posY;
     game->m_camera->processMouse(offsetX, offsetY);
 }
 
