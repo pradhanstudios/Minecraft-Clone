@@ -94,7 +94,7 @@ constexpr int blockOffsets[] = {
     0, -1, 0 // down
 };
 
-std::reference_wrapper<const float[18]> blockFaces[] = {
+inline std::reference_wrapper<const float[18]> blockFaces[] = {
     std::ref(cubeVerticesFront),
     std::ref(cubeVerticesBack),
     std::ref(cubeVerticesLeft),
