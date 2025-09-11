@@ -19,15 +19,6 @@ void Chunk::generate() {
 void Chunk::updateMesh() {
     std::vector<float> vertices;
 
-    std::reference_wrapper<const float[18]> blockFaces[] = {
-        std::ref(cubeVerticesFront),
-        std::ref(cubeVerticesBack),
-        std::ref(cubeVerticesLeft),
-        std::ref(cubeVerticesRight),
-        std::ref(cubeVerticesTop),
-        std::ref(cubeVerticesBottom)
-    };
-
     size_t faceSize = sizeof(cubeVerticesFront) / sizeof(float);
     for (uint x = 0; x < CHUNK_SIZE_X; x++)
     for (uint y = 0; y < CHUNK_SIZE_Y; y++)

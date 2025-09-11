@@ -84,3 +84,26 @@ constexpr float cubeVerticesBottom[] = {
     0.0f, 0.0f, 1.0f,
     0.0f, 0.0f, 0.0f
 };
+
+constexpr int blockOffsets[] = {
+    0, 0, 1, // front
+    0, 0, -1, // behind
+    -1, 0, 0, // left
+    1, 0, 0, // right
+    0, 1, 0, // up
+    0, -1, 0 // down
+};
+
+std::reference_wrapper<const float[18]> blockFaces[] = {
+    std::ref(cubeVerticesFront),
+    std::ref(cubeVerticesBack),
+    std::ref(cubeVerticesLeft),
+    std::ref(cubeVerticesRight),
+    std::ref(cubeVerticesTop),
+    std::ref(cubeVerticesBottom)
+};
+
+constexpr uint CHUNK_SIZE_X = 16;
+constexpr uint CHUNK_SIZE_Y = 16;
+constexpr uint CHUNK_SIZE_Z = 16;
+constexpr uint CHUNK_ARRAY_LENGTH = CHUNK_SIZE_X * CHUNK_SIZE_Y * CHUNK_SIZE_Z;
