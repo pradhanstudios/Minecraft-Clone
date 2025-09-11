@@ -36,7 +36,7 @@ Mesh::~Mesh() {
 	if (m_VAO != 0) {
 		glDeleteVertexArrays(1, &m_VAO);
 	}
-    
+
 	if (m_VBO != 0) {
 		glDeleteBuffers(1, &m_VBO);
 	}
