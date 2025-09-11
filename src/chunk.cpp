@@ -10,7 +10,8 @@ void addFace(std::vector<float>& vertices, const float* face, size_t face_length
 }
 
 void Chunk::generate() {
-    for (uint i = 0; i < m_chunkData.getLength(); i++) {
+    m_generated = true;
+    for (uint i = 0; i < CHUNK_ARRAY_LENGTH; i++) {
         m_chunkData.setBlock(i, blockArray[BLOCK_DIRT]);
     }
 }
@@ -18,22 +19,46 @@ void Chunk::generate() {
 void Chunk::updateMesh() {
     std::vector<float> vertices;
 
+    std::reference_wrapper<const float[18]> blockFaces[] = {
+        std::ref(cubeVerticesFront),
+        std::ref(cubeVerticesBack),
+        std::ref(cubeVerticesLeft),
+        std::ref(cubeVerticesRight),
+        std::ref(cubeVerticesTop),
+        std::ref(cubeVerticesBottom)
+    };
+
     size_t faceSize = sizeof(cubeVerticesFront) / sizeof(float);
-    for (uint x = 0; x < m_chunkData.getSizeX(); x++)
-    for (uint y = 0; y < m_chunkData.getSizeY(); y++)
-    for (uint z = 0; z < m_chunkData.getSizeZ(); z++) {
+    for (uint x = 0; x < CHUNK_SIZE_X; x++)
+    for (uint y = 0; y < CHUNK_SIZE_Y; y++)
+    for (uint z = 0; z < CHUNK_SIZE_Z; z++) {
         Block currBlock = m_chunkData.getBlock(x, y, z);
         if (currBlock.isTransparent()) {
             continue;
         }
-        
-        glm::vec3 offset = glm::vec3(float(x), float(y), float(z)) + m_position;
-        addFace(vertices, cubeVerticesFront, faceSize, offset);
-        addFace(vertices, cubeVerticesBack, faceSize, offset);
-        addFace(vertices, cubeVerticesLeft, faceSize, offset);
-        addFace(vertices, cubeVerticesRight, faceSize, offset);
-        addFace(vertices, cubeVerticesTop, faceSize, offset);
-        addFace(vertices, cubeVerticesBottom, faceSize, offset);
+
+        glm::vec3 worldPos = glm::vec3(float(x), float(y), float(z)) + m_position;
+        for (int i = 0; i < 6; i++) {
+            if ((i == 0 && z == (CHUNK_SIZE_Z - 1)) || (i == 1 && z == 0) || (i == 2 && x == 0) || (i == 3 && x == (CHUNK_SIZE_X-1)) || (i == 4 && y == (CHUNK_SIZE_Y-1)) || (i == 5 && y == 0) || m_chunkData.getBlock(
+                glm::clamp(x+blockOffsets[i], 0u, CHUNK_SIZE_X-1u),
+                glm::clamp(y+blockOffsets[i*2], 0u, CHUNK_SIZE_Y-1u),
+                glm::clamp(z+blockOffsets[i*3], 0u, CHUNK_SIZE_Z-1u)
+            ).isTransparent()) {
+                addFace(vertices, (blockFaces[i]), faceSize, worldPos);
+            }
+        }
+        // if (z != (CHUNK_SIZE_Z-1) && m_chunkData.getBlock(x, y, z+1).isTransparent())
+        //     addFace(vertices, cubeVerticesFront, faceSize, worldPos);
+        // if (z != 0 && m_chunkData.getBlock(x, y, z-1).isTransparent())
+        //     addFace(vertices, cubeVerticesBack, faceSize, worldPos);
+        // if (x != 0 && m_chunkData.getBlock(x-1, y, z).isTransparent())
+        //     addFace(vertices, cubeVerticesLeft, faceSize, worldPos);
+        // if (x != (CHUNK_SIZE_X-1) && m_chunkData.getBlock(x+1, y, z).isTransparent())
+        //     addFace(vertices, cubeVerticesRight, faceSize, worldPos);
+        // if (y != (CHUNK_SIZE_Y-1) && m_chunkData.getBlock(x, y+1, z).isTransparent())
+        //     addFace(vertices, cubeVerticesTop, faceSize, worldPos);
+        // if (y != 0 && m_chunkData.getBlock(x, y-1, z).isTransparent())
+        //     addFace(vertices, cubeVerticesBottom, faceSize, worldPos);
     }
 
     if (m_mesh) {
