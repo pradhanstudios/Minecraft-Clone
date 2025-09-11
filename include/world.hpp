@@ -5,7 +5,7 @@
 
 class World {
     Chunk** m_chunks;
-    glm::vec3* m_playerPosition;
+    glm::vec3& m_playerPosition;
     uint m_renderDistance;
 
     inline uint arrayCoordinates(uint x, uint z) const {
@@ -26,22 +26,24 @@ class World {
     void _saveChunkData(Chunk* data);
 
 public:
-    World(glm::vec3* playerPosition, uint renderDistance)
+    World(glm::vec3 playerPosition, uint renderDistance)
         : m_renderDistance(renderDistance), m_playerPosition(playerPosition) {
         assert(m_renderDistance % 2 == 0);
         m_chunks = new Chunk*[m_renderDistance * m_renderDistance];
         for (int i = 0; i < lengthOfArray(); i++) {
             m_chunks[i] = nullptr;
         }
+
+        std::cout << "World initialization complete" << std::endl;
     }
 
     ~World() {
-        delete m_playerPosition;
         for (int i = 0; i < lengthOfArray(); i++) {
             delete m_chunks[i];
         }
 
         delete[] m_chunks;
+        std::cout << "World destroyed" << std::endl;
     }
 
     void generateWorld();
@@ -56,7 +58,7 @@ public:
     }
 
     inline Chunk* getChunkAtCoordinates(glm::vec3 coordinates) {
-        coordinates -= *m_playerPosition;
+        coordinates -= m_playerPosition;
         int x = coordinates.x / CHUNK_SIZE_X;
         int z = coordinates.z / CHUNK_SIZE_Z;
 
@@ -64,8 +66,8 @@ public:
         x += m_renderDistance / 2;
         z += m_renderDistance / 2;
 
-        assert(0 < x < m_renderDistance);
-        assert(0 < z < m_renderDistance);
+        assert(0 <= x < m_renderDistance);
+        assert(0 <= z < m_renderDistance);
 
         return getChunkArrayCoordinates((uint)x, (uint)z);
     }
