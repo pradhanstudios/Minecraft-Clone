@@ -34,4 +34,4 @@ void Camera::updateVectors() {
     m_front = glm::normalize(front);
     m_rightAxis = glm::normalize(glm::cross(m_front, glm::vec3(0.f, 1.f, 0.f)));
     m_upAxis = glm::normalize(glm::cross(m_rightAxis, m_front));
-} 
+}
