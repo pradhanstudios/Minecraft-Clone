@@ -20,7 +20,7 @@ class World {
         return {x * 16.f, 0.f, z * 16.f};
     }
 
-    void createChunk(uint x, uint z);
+    void createChunk(uint x, uint z, glm::vec3 offset);
     void loadChunk(uint x, uint z);
     void unloadChunk(uint x, uint z);
     void _saveChunkData(Chunk* data);

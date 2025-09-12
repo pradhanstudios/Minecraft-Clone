@@ -1,10 +1,10 @@
 #include "world.hpp"
 
-void World::createChunk(uint x, uint z) {
+void World::createChunk(uint x, uint z, glm::vec3 offset) {
     Chunk* currChunk = getChunkArrayCoordinates(x, z);
     assert(currChunk == nullptr || !currChunk->hasBeenGenerated());
     if (currChunk == nullptr) {
-        currChunk = new Chunk(localToChunkCoords(x, z));
+        currChunk = new Chunk(localToChunkCoords(x, z) + offset);
         m_chunks[arrayCoordinates(x, z)] = currChunk;
     }
 
@@ -22,9 +22,11 @@ void World::_saveChunkData(Chunk* chunk) {
 }
 
 void World::generateWorld() {
+    glm::vec3 worldSize = {m_renderDistance * CHUNK_SIZE_X, m_renderDistance * CHUNK_SIZE_Y, m_renderDistance * CHUNK_SIZE_Z};
+    std::cout << m_playerPosition.z << std::endl;
     for (uint x = 0; x < m_renderDistance; x++) {
         for (uint z = 0; z < m_renderDistance; z++) {
-            createChunk(x, z);
+            createChunk(x, z, {m_playerPosition.x - (worldSize.x * 0.5f), m_playerPosition.y - CHUNK_SIZE_Y, -m_playerPosition.z + (worldSize.z * 0.5f)});
         }
     }
 }
