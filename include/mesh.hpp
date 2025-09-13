@@ -4,6 +4,8 @@
 #include <GL/glew.h>
 #include <vector>
 
+inline unsigned long long globalVertexCount = 0ull;
+
 class Mesh {
 public:
 	Mesh(const float* vertices, size_t numVertices, const uint* indices=nullptr, size_t numIndices=0);

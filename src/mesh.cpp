@@ -4,7 +4,7 @@
 // Constructor
 Mesh::Mesh(const float* vertices, size_t numVertices, const uint* indices, size_t numIndices)
 	: m_VAO(0), m_VBO(0), m_EBO(0), m_vertexCount(numVertices / 3), m_indexCount(numIndices) {
-
+    globalVertexCount += numVertices;
 	glGenVertexArrays(1, &m_VAO);
 	glGenBuffers(1, &m_VBO);
     if (indices)
@@ -33,6 +33,7 @@ Mesh::Mesh(const float* vertices, size_t numVertices, const uint* indices, size_
 
 // Destructor
 Mesh::~Mesh() {
+    globalVertexCount -= m_vertexCount;
 	if (m_VAO != 0) {
 		glDeleteVertexArrays(1, &m_VAO);
 	}

@@ -42,7 +42,7 @@ void Game::init() {
 	m_window = new Window(defaultWidth, defaultHeight, "Minecraft Clone");
 	m_renderer = new Renderer();
 	m_shader = new Shader(vertexShaderPath, fragmentShaderPath);
-    m_camera = new Camera(glm::vec3(0.f, 0.f, 10.f));
+    m_camera = new Camera(glm::vec3(0.f, 0.f, 0.f));
     m_world = new World(m_camera->getPosition(), 8);
     m_world->generateWorld();
 
@@ -104,6 +104,10 @@ void Game::processInput() {
 
     if (m_window->isKeyPressed(GLFW_KEY_SPACE)) {
         m_camera->setPosition(m_camera->getPosition() + glm::vec3(0.f, 1.f, 0.f) * cameraDefaultSpeed * deltaTime);
+    }
+
+    if (m_window->isKeyPressed(GLFW_KEY_V)) {
+        std::cout << "Global Vertex Count " << globalVertexCount << std::endl;
     }
 
     static bool fKeyLastState = false;
