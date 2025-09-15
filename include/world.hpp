@@ -72,5 +72,16 @@ public:
         return getChunkArrayCoordinates((uint)x, (uint)z);
     }
 
+    inline Block getBlockAtCoordinates(glm::vec3 coordinates) {
+        Chunk* chunk = getChunkAtCoordinates(coordinates);
+        glm::vec3 chunkPosition = chunk->getPosition();
+
+        uint x = (uint)abs(m_playerPosition.x - chunkPosition.x);
+        uint y = (uint)abs(m_playerPosition.y - chunkPosition.y);
+        uint z = (uint)abs(m_playerPosition.z - chunkPosition.z);
+
+        return chunk->getBlock(x, y, z);
+    }
+
     // void changeRenderDistance(uint renderDistance);
 };

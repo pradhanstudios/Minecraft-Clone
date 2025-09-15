@@ -12,13 +12,21 @@ class Chunk {
 public:
     Chunk(glm::vec3 position) : m_chunkData(), m_mesh(nullptr), m_position(position), m_generated(false) {}
 
-    inline Mesh* getMesh() {
+    inline Mesh* getMesh() const {
         return m_mesh;
     }
 
-    inline bool hasBeenGenerated() {
+    inline Block getBlock(uint x, uint y, uint z) const {
+        return m_chunkData->getBlock(x, y, z);
+    }
+
+    inline bool hasBeenGenerated() const {
         return m_generated;
     }
+
+    inline glm::vec3 getPosition() const {
+        return m_position;
+    } 
 
     void generate();
     void updateMesh();
