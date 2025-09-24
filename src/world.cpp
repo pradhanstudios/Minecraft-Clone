@@ -13,12 +13,20 @@ void World::createChunk(uint x, uint z, glm::vec3 offset) {
 }
 
 void World::unloadChunk(uint x, uint z) {
-    // Chunk* currChunk = getChunkArrayCoordinates(x, z);
-    // _saveChunkData(currChunk)
+    Chunk* chunk = getChunkArrayCoordinates(x, z);
+    assert(chunk != nullptr);
+    _saveChunk(chunk);
+    delete chunk;
+    m_chunks[arrayCoordinates(x, z)] = nullptr;
 }
 
-void World::_saveChunkData(Chunk* chunk) {
+void World::saveChunk(Chunk* chunk) {
+    ;
+}
 
+void getLocalChunkCoordinatesPlayer(uint& x, uint& z) {
+    glm::vec3 topLeftChunkPosition = getChunk1D(0u)->getPosition();
+    x = uint((topLeftChunkPosition - m_playerPosition.x) / 16.f)
 }
 
 void World::generateWorld() {

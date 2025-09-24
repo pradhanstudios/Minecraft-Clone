@@ -23,10 +23,11 @@ class World {
     void createChunk(uint x, uint z, glm::vec3 offset);
     void loadChunk(uint x, uint z);
     void unloadChunk(uint x, uint z);
-    void _saveChunkData(Chunk* data);
+    void saveChunk(Chunk* chunk);
+    void getLocalChunkCoordinatesPlayer(uint& x, uint& z);
 
 public:
-    World(glm::vec3 playerPosition, uint renderDistance)
+    World(glm::vec3& playerPosition, uint renderDistance)
         : m_renderDistance(renderDistance), m_playerPosition(playerPosition) {
         assert(m_renderDistance % 2 == 0);
         m_chunks = new Chunk*[m_renderDistance * m_renderDistance];
